@@ -6,24 +6,27 @@
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function(className) {
   
-  var domNodes = document.body.childNodes;
+  var domNodes = document.childNodes;
   var foundElems = new Array();
   
   function checkRecursiveley(domNodes, className){
     for(var i=0;i<domNodes.length;i++){
       var domNode = domNodes[i];
-      
-      if(domNode.className == className){
-        foundElems.push(domNode);
-      }
-      if(domNode.childNodes.length > 0){
-        checkRecursiveley(domNode.childNodes, className);
+      if (domNode.className != null || domNode.className != undefined) {
+        var nodeClasses = domNode.className.split(" ");
+        
+        if(nodeClasses.indexOf(className) != -1) {
+          foundElems.push(domNode);
+        }
+        if(domNode.childNodes.length > 0){
+          checkRecursiveley(domNode.childNodes, className);
+        }
       }
     }
   }
-  
   checkRecursiveley(domNodes, className);
   
   return foundElems;
 
 };
+
