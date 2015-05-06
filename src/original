@@ -37,7 +37,8 @@ if (Array.isArray(obj)) {
 		}
 	}
 
-if (typeof(obj) === "object") {
+if (typeof(obj) === "object")
+
 	var passed = [];
 	var result = [];
 
@@ -47,20 +48,27 @@ if (typeof(obj) === "object") {
 	if (isEmpty(obj) === true) {
 		return "{}";
 	}
-
 	else {
 
-		for (var x in obj) {
-			if (obj[x] !== undefined) {
-				if (typeof(obj[x]) === "function") {
-					result.push();
-				                                   }
-			else {
-				result.push(stringifyJSON(x) + ':' + stringifyJSON(obj[x]) );
-		                              }
-		                    }
-		         }
+	for (var x in obj) {
+	
+		if (obj[x] !== undefined && passed.indexOf(x) === -1) {
+			if (obj[x] === null) {
+				result.push(stringifyJSON(x) + ':' + null);
+				passed.push(x);
+								}
+			if (typeof(obj[x]) === "function") {
+				result.push('{}');
 			}
+			else {
+				result.push(stringifyJSON(x) + ':' + stringifyJSON(obj[x]));
+				passed.push(x);
+			}
+
 	return '{' + result + '}';
-  }
+	console.log(passed);
+
+			}
+		}
+	}
 }
